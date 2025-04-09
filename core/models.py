@@ -29,3 +29,10 @@ class SoftDeleteModel(models.Model):
         This is for hard delete the object from the database
         '''
         super().delete(*args, **kwargs)
+
+    class Meta:
+        abstract = True
+        '''
+        This is an abstract model; i.e Django shouldn't create a database table for this model as this is a base class 
+        and this model will be inherited by other models
+        '''
