@@ -15,4 +15,17 @@ class SoftDeleteModel(models.Model):
     active = models.BooleanField(default=True)
     objects = SoftDeleteManager() # This will return only active objects i.e not soft deleted ones
     all_objects = models.Manager()  # This will return all objects including soft deleted ones
-    
+
+
+    def delete(self, *args, **kwargs):
+        '''
+        This will override the delete method of the model and instead of deleting the object, it will set the active field to False making it a soft delete
+        '''
+        self.active = False
+        self.save()
+
+    def hard_delete(self, *args, **kwargs):
+        '''
+        This is for hard delete the object from the database
+        '''
+        super().delete(*args, **kwargs)
