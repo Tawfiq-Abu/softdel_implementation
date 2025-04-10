@@ -2,11 +2,12 @@ from django.db import models
 from django.db.models.query import QuerySet
 # Create your models here.
 class SoftDeleteManager(models.Manager):
-    '''
-    Getting QuerySet function for soft delet models
-    '''
-
-    return super().get_queryset().filter(active=True)
+    def get_queryset(self) -> QuerySet:
+        '''
+        This will override the default manager of the model and return only the objects that are not soft deleted
+        i.e active = True
+        '''
+        return super().get_queryset().filter(active=True)
 
 class SoftDeleteModel(models.Model):
     '''
