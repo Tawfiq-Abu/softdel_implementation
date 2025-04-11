@@ -25,6 +25,13 @@ class SoftDeleteModel(models.Model):
         self.active = False
         self.save()
 
+    def undelete(self, *args, **kwargs):
+        """
+        Undelete function for recovering a model object instance.
+        """
+        self.active = True
+        self.save()
+
     def hard_delete(self, *args, **kwargs):
         '''
         This is for hard delete the object from the database
